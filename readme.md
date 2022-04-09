@@ -1,0 +1,10 @@
+A certain number of customers are waiting in the ATM queue. These customers will withdraw all their money according to a certain limit and rule. Finally, our getFinalOrder() function will return the order in which customers leave the withdrawal queue.
+ 
+The getFinalOrder() function takes 2 parameters as an initial condition.
+• k => one time withdrawal limit (number),
+• amounts => account balances (array) created according to the first order of customers
+o For example if amounts=[3, 5, 1]; The 1st customer in the queue has 3, the 2nd customer has 5, the 3rd customer has 1 unit of money.
+Rule: The maximum amount that each customer can withdraw at once is defined by the number k. If the client has k or less in their account, they will withdraw their money and exit the queue. If he has more than k coins, he will withdraw k and move to the end of the line.
+According to the example above, if k=2, the first customer will withdraw 2 units of money and move to the end of the line and will have 1 unit of money in their account. The second customer will withdraw 2 units of money and move to the end of the line and will have 3 units of money left. The third customer will withdraw 1 unit of money and leave the queue. The first customer to leave is the third customer. Then the first customer withdraws the remaining 1 unit of money and leaves the queue. The customer who leaves the queue second is the first customer. Then the second customer withdraws all his money at the end of 2 rounds and leaves the row as the last. The getFinalOrder() function returns [3,1,2].
+It can also be interpreted as follows, if there are customers [“a”, “b” , “c”] in the queue at the first moment, the result will be [“c”, “a”, “b”] according to the departure from the queue. (This is written to understand the problem. The result will be according to the sequence number as in the previous paragraph, the name order is not desired.)
+Note: There is no array with ordinal numbers at the beginning or a customer array with names, the result will be an imaginary array based on the 2nd parameter of the function.
