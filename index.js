@@ -1,15 +1,6 @@
 const limit = 2;
 const amounts = [8, 6, 4,2];
-// [6,4,2,6]
-// [4,2,6,4]
-// [2,6,4,2]
-// [6,4,2] ==> query = [4]
-// [4,2,4]
-// [2,4,2]
-// [4,2]   ==> query = [4,3]
-// [2,2]
-// [2]     ==> query = [4,3,2]
-// []      ==> query = [4,3,2,1]
+
 
 const getFinalOrder = (limit, badges) => {
   var query = [];
