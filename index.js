@@ -1,30 +1,48 @@
-const k = 400;
-const amounts = [300, 500, 100];
+const limit = 2;
+const amounts = [8, 6, 4,2];
+// [6,4,2,6]
+// [4,2,6,4]
+// [2,6,4,2]
+// [6,4,2] ==> query = [4]
+// [4,2,4]
+// [2,4,2]
+// [4,2]   ==> query = [4,3]
+// [2,2]
+// [2]     ==> query = [4,3,2]
+// []      ==> query = [4,3,2,1]
 
 const getFinalOrder = (limit, badges) => {
-  var orders = [];
   var query = [];
 
-  for (let i = 0; i < badges.length; i++) {
-    orders.push([i + 1, badges[i]]);
-  }
+  let orders = badges.map((item, index) => {
+    return {number:item,order:index+1};
+  });
+  console.log('hello from orders ',{orders})
 
-  while (orders.length !== 0) {
-    for (let i = 0; i < orders.length; i++) {
-      for (let j = 0; j < orders[i]?.length; j++) {
-        if (limit >= orders[i][j + 1]) {
-          query.push(orders[i][j]);
-          orders.splice(i, 1);
-        } else if (limit < orders[i][j + 1]) {
-          orders[i][j + 1] = orders[i][j + 1] - limit;
-          orders.push(orders.splice(i, 1)[0]);
-        }
-      }
+  // get orders query 
+
+  const queue = [];
+
+  while (orders.length > 0) {
+    let firstElem= orders.shift();
+    if (firstElem.number > limit) {
+      orders.push({number:firstElem.number-limit,order:firstElem.order});
+    } else {
+      queue.push(firstElem.order);
     }
   }
 
-  return query
-
+  return queue;
 };
 
-console.log(getFinalOrder(k, amounts));
+
+let example1 = [2,4,6,8]
+  let example2 = [8,6,4,2]
+  let example3 = [4,6,8,2]
+  let example4 = [4444,6666,8888,2222]
+  let example5 = [5,55,6,24]
+console.log(getFinalOrder(2, example1)) // ==> [1 , 2 , 3 , 4]
+console.log(getFinalOrder(2, example2)) // ==> [4 , 3 , 2 , 1]
+console.log(getFinalOrder(4, example3))  // ==> [1 , 4 , 2 , 3]
+console.log(getFinalOrder(2, example4))  // ==> [4 , 1 , 2 , 3]
+console.log(getFinalOrder(12, example5))  // ==> [1 , 3 , 4 , 2]
